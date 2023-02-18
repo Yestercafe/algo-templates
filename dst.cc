@@ -1,7 +1,7 @@
-template <typename T>
+template <typename T, typename Sum = T>
 class Dst {
-    vector<T> tree, lazy;
-    vector<T> *arr;
+    std::vector<T> tree, lazy;
+    std::vector<T> *arr;
     int n, root, n4, end;
 
     void pushdown(int cl, int cr, int p) {
@@ -15,11 +15,11 @@ class Dst {
         }
     }
 
-    T range_sum(int l, int r, int cl, int cr, int p) {
+    Sum range_sum(int l, int r, int cl, int cr, int p) {
         if (l <= cl && cr <= r) return tree[p];
         pushdown(cl, cr, p);
         int m = cl + (cr - cl) / 2;
-        T sum = 0;
+        Sum sum = 0;
         if (l <= m) sum += range_sum(l, r, cl, m, p * 2);
         if (r > m) sum += range_sum(l, r, m + 1, cr, p * 2 + 1);
         return sum;
@@ -50,20 +50,20 @@ class Dst {
     }
 
 public:
-    explicit Dst<T>(int n) {
+    explicit Dst(std::size_t n) {
         this->n = n;
         n4 = n * 4;
-        tree = vector<T>(n4, 0);
-        lazy = vector<T>(n4, 0);
+        tree = std::vector<T>(n4, 0);
+        lazy = std::vector<T>(n4, 0);
         end = n - 1;
         root = 1;
     }
 
-    explicit Dst<T>(vector<T>& v) {
+    explicit Dst(std::vector<T>& v) {
         n = v.size();
         n4 = n * 4;
-        tree = vector<T>(n4, 0);
-        lazy = vector<T>(n4, 0);
+        tree = std::vector<T>(n4, 0);
+        lazy = std::vector<T>(n4, 0);
         arr = &v;
         end = n - 1;
         root = 1;
@@ -74,14 +74,12 @@ public:
     void show(int p, int depth = 0) {
         if (p > n4 || tree[p] == 0) return;
         show(p * 2, depth + 1);
-        for (int i = 0; i < depth; ++i) putchar('\t');
-        printf("%d:%d\n", tree[p], lazy[p]);
+        for (int i = 0; i < depth; ++i) std::putchar('\t');
+        std::printf("%d:%d\n", tree[p], lazy[p]);
         show(p * 2 + 1, depth + 1);
     }
 
-    T range_sum(int l, int r) { return range_sum(l, r, 0, end, root); }
+    Sum range_sum(int l, int r) { return range_sum(l, r, 0, end, root); }
 
     void range_add(int l, int r, int val) { range_add(l, r, val, 0, end, root); }
 };
-// index range: 0 ~ n-1
-
