@@ -2,11 +2,11 @@ struct Dsu {
     std::vector<size_t> pa, size, sum;
 
     explicit Dsu(size_t size_)
-        : pa(size_ * 2), size(size_ * 2, 1), sum(size_ * 2) {
-            std::iota(pa.begin(), pa.begin() + size_, size_);
-            std::iota(pa.begin() + size_, pa.end(), size_);
-            std::iota(sum.begin() + size_, sum.end(), 0);
-        }
+      : pa(size_ * 2), size(size_ * 2, 1), sum(size_ * 2) {
+        std::iota(pa.begin(), pa.begin() + size_, size_);
+        std::iota(pa.begin() + size_, pa.end(), size_);
+        std::iota(sum.begin() + size_, sum.end(), 0);
+    }
 
     void unite(size_t x, size_t y) {
         x = find(x), y = find(y);
