@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+import os
+import env
+import sys
+
+def main() -> int:
+    args = sys.argv
+    if len(args) != 4:
+        print('Usage: scaffold <lang> <scaffold_name> <dest_filename>')
+        return -1
+
+    _, lang, scaffold_name, dest_filename = args
+    scaffold_path = env.path + f'/{lang}/scaffolds/{scaffold_name}.{lang}'
+
+    if not os.path.exists(scaffold_path):
+        print(f"File `{scaffold_path}` doesn't exist.")
+        return -1
+    
+    cmd = f'cp {scaffold_path} {dest_filename}'
+    print('> ' + cmd)
+    return os.system(cmd)
+
+
+if __name__ == '__main__':
+    exit(main())
+
