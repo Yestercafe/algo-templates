@@ -1,6 +1,6 @@
 # algo-templates
 
-## Make Scaffolds up
+## Make Scaffolds Up
 
 ```bash
 echo "path='$PWD'" > bin/env.py
