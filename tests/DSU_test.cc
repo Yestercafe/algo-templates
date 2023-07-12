@@ -16,6 +16,8 @@ int main() {
 
     std::cout << s.size() << std::endl;
 
+    // test more: https://github.com/Yescafe/HDOJ_Solutions/blob/master/oj1102/main.cpp
+    
     return 0;
 }
 
